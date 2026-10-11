@@ -18,8 +18,13 @@ const empresaUsuariosRoutes = require("./routes/empresa_usuarios");
 const metricasRoutes = require("./routes/metricas");
 
 const app = express();
+app.disable("x-powered-by");
 
-app.use(cors());
+// Orígenes permitidos (separados por coma); por defecto el frontend local
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:3350,http://localhost:5173")
+  .split(",")
+  .map((o) => o.trim());
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 app.use(morgan("dev"));
 

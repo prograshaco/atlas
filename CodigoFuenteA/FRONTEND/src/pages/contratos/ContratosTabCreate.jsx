@@ -24,7 +24,7 @@ export default function ContratosTabCreate({ onSuccess, onLoad }) {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       try {
         const { data } = await api.get("/clientes");
         setClientes(data || []);

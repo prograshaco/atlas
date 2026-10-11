@@ -33,7 +33,7 @@ export default function UsuarioForm() {
 
   useEffect(() => {
     if (!id) return;
-    (async () => {
+    void (async () => {
       try {
         const { data } = await api.get(`/usuarios/${id}`);
         setUsuarioInfo({

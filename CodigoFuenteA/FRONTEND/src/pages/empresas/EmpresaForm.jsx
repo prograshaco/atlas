@@ -30,7 +30,7 @@ export default function EmpresaForm() {
 
   useEffect(() => {
     if (!id) return
-    ;(async () => {
+    void (async () => {
       try {
         const { data } = await api.get(`/empresas/${id}`)
         setEmpresaInfo({

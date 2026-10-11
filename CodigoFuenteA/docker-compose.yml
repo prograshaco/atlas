@@ -33,6 +33,7 @@ services:
       - DATABASE_URL=postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@atlas-postgres:5432/${POSTGRES_DB:-atlas}
       - NODE_ENV=${NODE_ENV:-production}
       - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
+      - CORS_ORIGINS=http://localhost:${PORT_FRONTEND:-3350}
     ports:
       - "${PORT_BACKEND:-4450}:4000"
     depends_on:
@@ -53,7 +54,7 @@ services:
     container_name: atlas-frontend
     hostname: atlas-web
     ports:
-      - "${PORT_FRONTEND:-3350}:80"
+      - "${PORT_FRONTEND:-3350}:8080"
     depends_on:
       - atlas-backend
     networks:

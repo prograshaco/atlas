@@ -60,7 +60,7 @@ export default function ClienteForm() {
 
   useEffect(() => {
     if (!isEdit) return;
-    (async () => {
+    void (async () => {
       try {
         const { data } = await api.get(`/clientes/${id}`);
         setForm({

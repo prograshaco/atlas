@@ -127,14 +127,14 @@ router.get("/", async (req, res) => {
       "SELECT COUNT(*) as total FROM empresa_usuarios WHERE empresa_id = $1",
       [empresaId]
     );
-    const totalUsuarios = parseInt(totalUsuariosResult.rows[0].total);
+    const totalUsuarios = Number.parseInt(totalUsuariosResult.rows[0].total);
 
     // Total de clientes de la empresa
     const totalClientesResult = await pool.query(
       "SELECT COUNT(*) as total FROM clientes WHERE empresa_id = $1",
       [empresaId]
     );
-    const totalClientes = parseInt(totalClientesResult.rows[0].total);
+    const totalClientes = Number.parseInt(totalClientesResult.rows[0].total);
 
     // Contratos que vencen en los próximos 15 días
     const contratos15DiasResult = await pool.query(
@@ -146,7 +146,7 @@ router.get("/", async (req, res) => {
          AND c.fecha_fin <= $3`,
       [empresaId, hoyFormateado, fecha15DiasFormateada]
     );
-    const contratos15Dias = parseInt(contratos15DiasResult.rows[0].total);
+    const contratos15Dias = Number.parseInt(contratos15DiasResult.rows[0].total);
 
     // Contratos que vencen en los próximos 30 días
     const contratos30DiasResult = await pool.query(
@@ -158,7 +158,7 @@ router.get("/", async (req, res) => {
          AND c.fecha_fin <= $3`,
       [empresaId, hoyFormateado, fecha30DiasFormateada]
     );
-    const contratos30Dias = parseInt(contratos30DiasResult.rows[0].total);
+    const contratos30Dias = Number.parseInt(contratos30DiasResult.rows[0].total);
 
     // Respuesta final
     res.json({

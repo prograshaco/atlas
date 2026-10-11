@@ -12,7 +12,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "inseguro";
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+// Limita el tamaño de los archivos subidos (10 MB)
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
 function getUserFromAuthHeader(req) {
   const auth = req.headers.authorization || "";
@@ -210,14 +211,14 @@ router.get("/dashboard", async (req, res) => {
       "SELECT COUNT(*) as total FROM empresa_usuarios WHERE empresa_id = $1",
       [empresaId]
     );
-    const totalUsuarios = parseInt(totalUsuariosResult.rows[0].total);
+    const totalUsuarios = Number.parseInt(totalUsuariosResult.rows[0].total);
 
     // Total de clientes asociados a la empresa
     const totalClientesResult = await pool.query(
       "SELECT COUNT(*) as total FROM clientes WHERE empresa_id = $1",
       [empresaId]
     );
-    const totalClientes = parseInt(totalClientesResult.rows[0].total);
+    const totalClientes = Number.parseInt(totalClientesResult.rows[0].total);
 
     // Total de contratos que vencen en los próximos 7 días
     const contratos7DiasResult = await pool.query(
@@ -229,7 +230,7 @@ router.get("/dashboard", async (req, res) => {
          AND c.fecha_fin <= $3`,
       [empresaId, hoyFormateado, fecha7DiasFormateada]
     );
-    const contratos7Dias = parseInt(contratos7DiasResult.rows[0].total);
+    const contratos7Dias = Number.parseInt(contratos7DiasResult.rows[0].total);
 
     // Total de contratos que vencen en los próximos 15 días
     const contratos15DiasResult = await pool.query(
@@ -241,7 +242,7 @@ router.get("/dashboard", async (req, res) => {
          AND c.fecha_fin <= $3`,
       [empresaId, hoyFormateado, fecha15DiasFormateada]
     );
-    const contratos15Dias = parseInt(contratos15DiasResult.rows[0].total);
+    const contratos15Dias = Number.parseInt(contratos15DiasResult.rows[0].total);
 
     // Total de contratos que vencen en los próximos 30 días
     const contratos30DiasResult = await pool.query(
@@ -253,7 +254,7 @@ router.get("/dashboard", async (req, res) => {
          AND c.fecha_fin <= $3`,
       [empresaId, hoyFormateado, fecha30DiasFormateada]
     );
-    const contratos30Dias = parseInt(contratos30DiasResult.rows[0].total);
+    const contratos30Dias = Number.parseInt(contratos30DiasResult.rows[0].total);
 
     res.json({
       totalUsuarios,

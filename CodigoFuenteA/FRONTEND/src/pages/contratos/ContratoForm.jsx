@@ -31,7 +31,7 @@ export default function ContratoForm() {
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       try {
         const { data } = await api.get("/clientes");
         setClientes(data || []);
@@ -43,7 +43,7 @@ export default function ContratoForm() {
 
   useEffect(() => {
     if (!isEdit) return;
-    (async () => {
+    void (async () => {
       try {
         const { data } = await api.get(`/contratos/${id}`);
         setForm({

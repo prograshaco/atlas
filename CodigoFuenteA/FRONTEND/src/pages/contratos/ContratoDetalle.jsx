@@ -18,7 +18,7 @@ export default function ContratoDetalle() {
     setItem(data);
   };
   useEffect(() => {
-    load();
+    void load();
   }, [id]); // eslint-disable-line
 
   const onDelete = async () => {
