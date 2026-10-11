@@ -12,8 +12,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "inseguro";
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const storage = multer.memoryStorage();
-// Limita el tamaño de los archivos subidos (10 MB)
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
+// Limita el tamaño de los archivos subidos (5 MB)
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 function getUserFromAuthHeader(req) {
   const auth = req.headers.authorization || "";

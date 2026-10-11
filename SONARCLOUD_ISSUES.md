@@ -29,7 +29,7 @@ Extraídos vía API (`/api/issues/search?componentKeys=val4nti_atlas&branch=main
 | 12 | MINOR | Vulnerabilidad | docker:S6471 | `BACKEND/Dockerfile:1` | Imagen `node` corre como root | Se agregó `USER node` (y `chown` de `uploads/`) |
 | 13 | MINOR | Vulnerabilidad | javascript:S5689 | `BACKEND/src/app.js:20` | Express expone versión (`X-Powered-By`) | `app.disable("x-powered-by")` |
 | 14 | MAJOR | Vulnerabilidad | javascript:S5122 | `BACKEND/src/app.js:22` | CORS abierto a cualquier origen | `cors({ origin: allowedOrigins })` leyendo `CORS_ORIGINS` (por defecto `http://localhost:3350,http://localhost:5173`); se añadió `CORS_ORIGINS` en `docker-compose.yml` |
-| 15 | MAJOR | Vulnerabilidad | javascript:S5693 | `BACKEND/src/routes/contracts.js:15` | Subida de archivos (multer) sin límite de tamaño | `limits: { fileSize: 10 MB }` |
+| 15 | MAJOR | Vulnerabilidad | javascript:S5693 | `BACKEND/src/routes/contracts.js:15` | Subida de archivos (multer) sin límite de tamaño | `limits: { fileSize: 5 MB }` (Sonar marca como inseguro cualquier límite mayor a 8 MB) |
 | 16 | MAJOR | Vulnerabilidad | docker:S8543 | `FRONTEND/Dockerfile:15` | Dependencias sin versiones bloqueadas (se borraba `package-lock.json`) | Se usa `npm ci` con el lockfile |
 | 17 | MAJOR | Vulnerabilidad | docker:S6505 | `FRONTEND/Dockerfile:15` | Instalación sin `--ignore-scripts` | `npm ci --ignore-scripts` |
 | 18 | MAJOR | Vulnerabilidad | docker:S8543 | `FRONTEND/Dockerfile:16` | `npm install @rollup/...` sin lockfile | Eliminado (el lockfile ya incluye los binarios opcionales de rollup/esbuild) |
